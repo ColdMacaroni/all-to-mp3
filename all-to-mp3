@@ -1,0 +1,12 @@
+#!/bin/bash
+# Converts all files to mp3 using ffmpeg. Puts inside folder
+
+mkdir mp3s
+
+items=$(find . -maxdepth 1 -type f -printf '%f\n')
+
+IFS=$'\n'
+for item in $items; do
+    filename=$(echo $item | grep -Po "^.*(?=(\.))")
+    ffmpeg -i "$item" "mp3s/$filename.mp3"
+done
